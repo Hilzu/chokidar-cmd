@@ -24,5 +24,6 @@
   "homepage": "https://github.com/Hilzu/chokidar-cmd",
   "dependencies": {
     "chokidar": "^0.12.5"
-  }
+  },
+  "version": "0.0.1"
 }
