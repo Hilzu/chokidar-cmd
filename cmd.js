@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 
 var chokidar = require('chokidar')
