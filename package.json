@@ -25,5 +25,5 @@
   "dependencies": {
     "chokidar": "^1.0.0-rc4"
   },
-  "version": "0.2.0"
+  "version": "0.2.1"
 }
