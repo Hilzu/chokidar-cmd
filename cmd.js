@@ -2,7 +2,7 @@
 "use strict";
 
 var chokidar = require('chokidar')
-var exec = require('child_process').exec
+var child = require('child_process')
 
 var command = process.argv[2]
 var target = process.argv[3]
@@ -28,20 +28,36 @@ function runner(command) {
     if (running) return
     running = true
 
-    var p = exec(command, function(err, stdout, stderr) {
-      if (err !== null) logError(err)
+    execAsync(command, function(err, output) {
+      if (err) logError(err, output)
       running = false
     })
-
-    p.stdout.on('data', process.stdout.write)
-    p.stderr.on('data', process.stderr.write)
   }
 }
 
-function logError(err) {
-  console.error('chokidar-cmd error:', err.message)
+function logError() {
+  console.error('chokidar-cmd error:', arguments)
 }
 
 function usage() {
   console.log('Usage: chokidar-watch \'command\' file-or-dir')
+}
+
+function execAsync(cmd, callback) {
+  var output = ''
+
+  var c = child.exec(cmd, {env: process.env, maxBuffer: 20*1024*1024}, function(err) {
+    callback(err ? err : null, output)
+  })
+
+  c.stdout.on('data', function(data) {
+    output += data
+  });
+
+  c.stderr.on('data', function(data) {
+    output += data
+    process.stdout.write(data)
+  });
+
+  return c
 }
