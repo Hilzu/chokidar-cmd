@@ -10,6 +10,9 @@ var chokidar = require('chokidar')
     .demand(['command', 'target'])
     .alias('command', 'c')
     .alias('target', 't')
+    .boolean('verbose')
+    .alias('verbose', 'v')
+    .describe('verbose', 'Show verbose output')
     .help('help')
     .alias('help', 'h')
     .version(function() { return require('./package').version })
@@ -30,9 +33,11 @@ function runner(command) {
   return function() {
     if (running) return
     running = true
-
+    verboseLog('Executing command', command)
     execAsync(command, function(err, output) {
-      if (err) logError(err, output)
+      if (err) logError(err)
+      else verboseLog('Command completed successfully.')
+
       running = false
     })
   }
@@ -42,8 +47,8 @@ function logError() {
   console.error('chokidar-cmd error:', arguments)
 }
 
-function usage() {
-  console.log('Usage: chokidar-cmd \'command\' file-or-dir')
+function verboseLog() {
+  if (argv.verbose) console.log.apply(console, arguments)
 }
 
 function execAsync(cmd, callback) {
