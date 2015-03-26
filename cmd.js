@@ -44,7 +44,7 @@ function runner(command) {
 }
 
 function logError() {
-  console.error('chokidar-cmd error:', arguments)
+  console.error.apply(console, ['chokidar-cmd error:'].concat(arguments))
 }
 
 function verboseLog() {
@@ -60,11 +60,12 @@ function execAsync(cmd, callback) {
 
   c.stdout.on('data', function(data) {
     output += data
+    process.stdout.write(data)
   });
 
   c.stderr.on('data', function(data) {
     output += data
-    process.stdout.write(data)
+    process.stderr.write(data)
   });
 
   return c
