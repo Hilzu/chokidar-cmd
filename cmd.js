@@ -33,7 +33,8 @@ if (!argv.quiet) console.log('Watching', argv.target, 'and running command "' + 
 function runner(command) {
   var running = false
 
-  return function() {
+  return function(path) {
+    verboseLog('Path "', path, '" changed.')
     if (running) return
     running = true
     verboseLog('Executing command', command)
