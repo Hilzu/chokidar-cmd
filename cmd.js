@@ -13,6 +13,9 @@ var chokidar = require('chokidar')
     .boolean('verbose')
     .alias('verbose', 'v')
     .describe('verbose', 'Show verbose output')
+    .boolean('quiet')
+    .alias('quiet', 'q')
+    .describe('quiet', 'Silence normal output')
     .help('help')
     .alias('help', 'h')
     .version(function() { return require('./package').version })
@@ -25,7 +28,7 @@ watcher
   .on('error', logError)
   .on('change', run)
 
-console.log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
+if (!argv.quiet) console.log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
 
 function runner(command) {
   var running = false
@@ -60,7 +63,7 @@ function execAsync(cmd, callback) {
 
   c.stdout.on('data', function(data) {
     output += data
-    process.stdout.write(data)
+    if (!argv.quiet) process.stdout.write(data)
   });
 
   c.stderr.on('data', function(data) {
