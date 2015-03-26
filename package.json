@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/Hilzu/chokidar-cmd",
   "dependencies": {
-    "chokidar": "^1.0.0-rc4"
+    "chokidar": "^1.0.0-rc4",
+    "yargs": "^3.6.0"
   },
   "version": "0.2.1"
 }

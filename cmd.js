@@ -2,24 +2,27 @@
 "use strict";
 
 var chokidar = require('chokidar')
-var child = require('child_process')
+  , child = require('child_process')
+  , argv = require('yargs')
+    .usage('Usage: $0 -c "command" -t file-or-dir')
+    .command('chokidar-cmd', 'Watch directory or file for file for changes and run given command')
+    .example('$0 -c "npm run less" -t src/styles', 'Run less build on changes to styles')
+    .demand(['command', 'target'])
+    .alias('command', 'c')
+    .alias('target', 't')
+    .help('help')
+    .alias('help', 'h')
+    .version(function() { return require('./package').version })
+    .argv
 
-var command = process.argv[2]
-var target = process.argv[3]
-
-if (!command || !target) {
-  usage()
-  process.exit(1)
-}
-
-var watcher = chokidar.watch(target, {persistent: true})
-var run = runner(command)
+var watcher = chokidar.watch(argv.target, {persistent: true})
+var run = runner(argv.command)
 
 watcher
   .on('error', logError)
   .on('change', run)
 
-console.log('Watching', target, 'and running command "' + command + '" on changes')
+console.log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
 
 function runner(command) {
   var running = false
