@@ -40,7 +40,7 @@ function logError() {
 }
 
 function usage() {
-  console.log('Usage: chokidar-watch \'command\' file-or-dir')
+  console.log('Usage: chokidar-cmd \'command\' file-or-dir')
 }
 
 function execAsync(cmd, callback) {

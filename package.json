@@ -3,7 +3,7 @@
   "description": "Command-line wrapper for Chokidar",
   "main": "index.js",
   "bin": {
-    "chokidar-watch": "./cmd.js"
+    "chokidar-cmd": "./cmd.js"
   },
   "repository": {
     "type": "git",
