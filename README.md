@@ -28,10 +28,10 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
       --version      Show version number
     
     Examples:
-      chokidar-cmd  -c "npm run less" -t src/styles      Run less build on changes to
-                                                         styles
-      chokidar-cmd  -c "npm run less" -t src/styles      Run less build on changes to
-      -t ext/styles                                      either styles directory
+      chokidar-cmd -c "npm run less" -t           Run less build on changes to
+      src/styles                                  styles
+      chokidar-cmd -c "npm run less" -t           Run less build on changes to
+      src/styles -t ext/styles                    either styles directory
 
 
 ## npm run usage
