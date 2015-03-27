@@ -51,3 +51,8 @@ Use it directly from your package.json for watching without task runners and wit
 ```
 
     $ npm run watch:less
+
+
+## Changelog
+
+See [Releases](https://github.com/Hilzu/chokidar-cmd/releases).
