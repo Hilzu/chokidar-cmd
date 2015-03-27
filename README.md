@@ -17,8 +17,9 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
     
     Options:
       --command, -c  Command to run on file changes                       [required]
-      --target, -t   Target file path to watch or directory to be watched
-                     recursively                                          [required]
+      --target, -t   Target file path, directory and its contents or glob pattern
+                     to watch. You can provide several targets using several target
+                     flags.                                               [required]
       --verbose, -v  Show verbose output
       --quiet, -q    Silence normal output
       --initial      Run command immediately after initial scan (when chokidar is
@@ -27,7 +28,10 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
       --version      Show version number
     
     Examples:
-      chokidar-cmd -c "npm run less" -t src/styles    Run less build on changes to styles
+      chokidar-cmd  -c "npm run less" -t src/styles      Run less build on changes to
+                                                         styles
+      chokidar-cmd  -c "npm run less" -t src/styles      Run less build on changes to
+      -t ext/styles                                      either styles directory
 
 
 ## npm run usage

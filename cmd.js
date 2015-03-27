@@ -7,12 +7,15 @@ var chokidar = require('chokidar')
     .usage('Usage: $0 -c "command" -t file-or-dir')
     .command('chokidar-cmd', 'Watch directory or file for changes and run given command')
     .example('$0 -c "npm run less" -t src/styles', 'Run less build on changes to styles')
-    .string(['command', 'target'])
+    .example('$0 -c "npm run less" -t src/styles -t ext/styles', 'Run less build on changes to either styles directory')
     .demand(['command', 'target'])
+    .string('command')
     .alias('command', 'c')
     .describe('command', 'Command to run on file changes')
+    .array('target')
     .alias('target', 't')
-    .describe('target', 'Target file path to watch or directory to be watched recursively')
+    .describe('target', 'Target file path, directory and its contents or glob pattern to watch. You can provide ' +
+      'several targets using several target flags.')
     .boolean('verbose')
     .alias('verbose', 'v')
     .describe('verbose', 'Show verbose output')
@@ -36,7 +39,7 @@ watcher
   .on('ready', function() { if (argv.initial) run('initial scan run') })
   .on('change', run)
 
-log('Watching ' + argv.target + ' and running command "' + argv.command + '" on changes')
+log('Watching "' + argv.target.join('", "') + '" and running command "' + argv.command + '" on changes')
 
 function runner(command) {
   var running = false
