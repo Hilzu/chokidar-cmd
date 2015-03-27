@@ -8,22 +8,35 @@ var chokidar = require('chokidar')
     .command('chokidar-cmd', 'Watch directory or file for changes and run given command')
     .example('chokidar-cmd -c "npm run less" -t src/styles', 'Run less build on changes to styles')
     .example('chokidar-cmd -c "npm run less" -t src/styles -t ext/styles', 'Run less build on changes to either styles directory')
-    .demand(['command', 'target'])
-    .string('command')
-    .alias('command', 'c')
-    .describe('command', 'Command to run on file changes')
-    .array('target')
-    .alias('target', 't')
-    .describe('target', 'Target file path, directory and its contents or glob pattern to watch. You can provide ' +
-      'several targets using several target flags.')
-    .boolean('verbose')
-    .alias('verbose', 'v')
-    .describe('verbose', 'Show verbose output')
-    .boolean('quiet')
-    .alias('quiet', 'q')
-    .describe('quiet', 'Silence normal output')
-    .boolean('initial')
-    .describe('initial', 'Run command immediately after initial scan (when chokidar is ready)')
+    .options({
+      command: {
+        demand: true,
+        type: 'string',
+        alias: 'c',
+        describe: 'Command to run on file changes'
+      },
+      target: {
+        demand: true,
+        type: 'array',
+        alias: 't',
+        describe: 'Target file path, directory and its contents or glob pattern to watch. You can provide ' +
+          'several targets using several target flags.'
+      },
+      verbose: {
+        type: 'boolean',
+        alias: 'v',
+        describe: 'Show verbose output'
+      },
+      quiet: {
+        type: 'boolean',
+        alias: 'q',
+        describe: 'Silence normal output'
+      },
+      initial: {
+        type: 'boolean',
+        describe: 'Run command immediately after initial scan (when chokidar is ready)'
+      }
+    })
     .help('help')
     .alias('help', 'h')
     .version(function() { return require('./package').version })
