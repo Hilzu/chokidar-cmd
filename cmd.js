@@ -24,7 +24,10 @@ var chokidar = require('chokidar')
   , run = runner(argv.command)
 
 watcher
-  .on('error', logError)
+  .on('error', function(err) {
+    logError(err)
+    process.exit(1)
+  })
   .on('change', run)
 
 log('Watching ' + argv.target + ' and running command "' + argv.command + '" on changes')
