@@ -27,35 +27,35 @@ watcher
   .on('error', logError)
   .on('change', run)
 
-log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
+log('Watching ' + argv.target + ' and running command "' + argv.command + '" on changes')
 
 function runner(command) {
   var running = false
 
   return function(path) {
-    verboseLog('Path "', path, '" changed.')
+    verboseLog('Path "' + path + '" changed')
     if (running) return
     running = true
-    verboseLog('Executing command', command)
+    verboseLog('Executing command: ' + command)
     execAsync(command, function(err, output) {
       if (err) logError(err)
-      else verboseLog('Command completed successfully.')
+      else verboseLog('Command "' + command + '" completed successfully')
 
       running = false
     })
   }
 }
 
-function log() {
-  if (!argv.quiet) console.log.apply(console, arguments)
+function log(msg) {
+  if (!argv.quiet) console.log('[chokidar-cmd]', msg)
 }
 
-function logError() {
-  console.error.apply(console, ['chokidar-cmd error:'].concat(arguments))
+function logError(err) {
+  console.error('[chokidar-cmd] ERROR:', err)
 }
 
-function verboseLog() {
-  if (argv.verbose) console.log.apply(console, arguments)
+function verboseLog(msg) {
+  if (argv.verbose) log(msg)
 }
 
 function execAsync(cmd, callback) {
