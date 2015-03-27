@@ -13,8 +13,7 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
     Usage: chokidar-cmd -c "command" -t file-or-dir
     
     Commands:
-      chokidar-cmd    Watch directory or file for file for changes and run given
-                      command
+      chokidar-cmd    Watch directory or file for changes and run given command
     
     Options:
       --verbose, -v  Show verbose output
@@ -28,16 +27,20 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
       chokidar-cmd -c "npm run less" -t src/styles    Run less build on changes to styles
 
 
-## package.json usage
+## npm run usage
 
 Use it directly from your package.json for watching without task runners and without installing globally!
 
 ```javascript
-"devDependencies": {
-    "chokidar-cmd": "^1.0.0"
-},
-"scripts": {
-    "less": "lessc src/styles.less > public/styles.css",
-    "watch:less": "chokidar-cmd -c 'npm run less' -t src/styles.less"
+{
+    "devDependencies": {
+        "chokidar-cmd": "^1.0.0"
+    },
+    "scripts": {
+        "less": "lessc src/styles.less public/styles.css",
+        "watch:less": "chokidar-cmd -c 'npm run less' -t src/styles.less"
+    }
 }
 ```
+
+    $ npm run watch:less
