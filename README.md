@@ -16,14 +16,15 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
       chokidar-cmd    Watch directory or file for changes and run given command
     
     Options:
+      --command, -c  Command to run on file changes                       [required]
+      --target, -t   Target file path to watch or directory to be watched
+                     recursively                                          [required]
       --verbose, -v  Show verbose output
       --quiet, -q    Silence normal output
       --initial      Run command immediately after initial scan (when chokidar is
                      ready)
       --help, -h     Show help
       --version      Show version number
-      --command, -c                                                       [required]
-      --target, -t                                                        [required]
     
     Examples:
       chokidar-cmd -c "npm run less" -t src/styles    Run less build on changes to styles
