@@ -18,6 +18,8 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
     Options:
       --verbose, -v  Show verbose output
       --quiet, -q    Silence normal output
+      --initial      Run command immediately after initial scan (when chokidar is
+                     ready)
       --help, -h     Show help
       --version      Show version number
       --command, -c                                                       [required]
