@@ -20,9 +20,8 @@ var chokidar = require('chokidar')
     .alias('help', 'h')
     .version(function() { return require('./package').version })
     .argv
-
-var watcher = chokidar.watch(argv.target, {persistent: true})
-var run = runner(argv.command)
+  , watcher = chokidar.watch(argv.target, { persistent: true })
+  , run = runner(argv.command)
 
 watcher
   .on('error', logError)
@@ -62,19 +61,19 @@ function verboseLog() {
 function execAsync(cmd, callback) {
   var output = ''
 
-  var c = child.exec(cmd, {env: process.env, maxBuffer: 20*1024*1024}, function(err) {
+  var c = child.exec(cmd, { env: process.env, maxBuffer: 20 * 1024 * 1024 }, function(err) {
     callback(err ? err : null, output)
   })
 
   c.stdout.on('data', function(data) {
     output += data
     if (!argv.quiet) process.stdout.write(data)
-  });
+  })
 
   c.stderr.on('data', function(data) {
     output += data
     process.stderr.write(data)
-  });
+  })
 
   return c
 }
