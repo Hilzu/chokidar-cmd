@@ -26,5 +26,5 @@
     "chokidar": "^1.0.0-rc4",
     "yargs": "^3.6.0"
   },
-  "version": "0.2.1"
+  "version": "1.0.0"
 }
