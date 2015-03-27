@@ -28,7 +28,7 @@ watcher
   .on('error', logError)
   .on('change', run)
 
-if (!argv.quiet) console.log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
+log('Watching', argv.target, 'and running command "' + argv.command + '" on changes')
 
 function runner(command) {
   var running = false
@@ -45,6 +45,10 @@ function runner(command) {
       running = false
     })
   }
+}
+
+function log() {
+  if (!argv.quiet) console.log.apply(console, arguments)
 }
 
 function logError() {
