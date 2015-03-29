@@ -1,7 +1,7 @@
 {
   "name": "chokidar-cmd",
   "description": "Command-line wrapper for Chokidar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "bin": {
     "chokidar-cmd": "./cmd.js"
