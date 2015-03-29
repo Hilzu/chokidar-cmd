@@ -6,26 +6,23 @@ var assert = require('chai').assert
 var touch = require('touch')
 var tempdir = os.tmpdir()
 var chokidarCmd = path.resolve(__dirname, './cmd.js')
-var p
+var p, writeTimer
 
 afterEach(function() {
   p.kill()
+  clearInterval(writeTimer)
 })
 
 test('runs command on file change', function(done) {
   var target = path.resolve(tempdir, './' + 'test-target-' + Math.random())
   var echoText = target + '-changed-' + Math.random()
-  var ready = false
 
   touch.sync(target, function(err) { assert.isNull(err) })
 
+  writeTimer = setInterval(function() { appendToFile(target) }, 500)
   p = spawn(chokidarCmd, ['-t', target, '-c', echoCmd(echoText), '-v'], { cwd: tempdir })
 
   p.stdout.on('data', function(data) {
-    if (!ready) {
-      ready = true
-      process.nextTick(function() { appendToFile(target) })
-    }
     process.stdout.write(data)
     if (new RegExp('^' + echoText).test(data.toString())) done()
   })
