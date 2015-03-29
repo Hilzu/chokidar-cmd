@@ -1,6 +1,7 @@
 {
   "name": "chokidar-cmd",
   "description": "Command-line wrapper for Chokidar",
+  "version": "1.0.0",
   "main": "index.js",
   "bin": {
     "chokidar-cmd": "./cmd.js"
@@ -22,9 +23,16 @@
     "url": "https://github.com/Hilzu/chokidar-cmd/issues"
   },
   "homepage": "https://github.com/Hilzu/chokidar-cmd",
+  "scripts": {
+    "test": "mocha -u tdd -t 5000"
+  },
   "dependencies": {
     "chokidar": "^1.0.0-rc4",
     "yargs": "^3.6.0"
   },
-  "version": "1.0.0"
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "mocha": "^2.2.1",
+    "touch": "0.0.3"
+  }
 }
