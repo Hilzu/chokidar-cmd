@@ -1,6 +1,8 @@
 chokidar-cmd
 ============
 
+[![Build Status](https://travis-ci.org/Hilzu/chokidar-cmd.svg)](https://travis-ci.org/Hilzu/chokidar-cmd)
+
 Command-line wrapper for [Chokidar](https://github.com/paulmillr/chokidar). Run shell command when file or file's in a
 directory are changed.
 
