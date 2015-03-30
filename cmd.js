@@ -62,7 +62,7 @@ function runner (command) {
     if (running) return
     running = true
     verboseLog('Executing command: ' + command)
-    execAsync(command, function (err, output) {
+    execAsync(command, function (err) {
       if (err) logError(err)
       else verboseLog('Command "' + command + '" completed successfully')
 
@@ -84,19 +84,15 @@ function verboseLog (msg) {
 }
 
 function execAsync (cmd, callback) {
-  var output = ''
-
-  var c = child.exec(cmd, { env: process.env, maxBuffer: 20 * 1024 * 1024 }, function (err) {
-    callback(err ? err : null, output)
+  var c = child.exec(cmd, { env: process.env }, function (err) {
+    callback(err ? err : null)
   })
 
   c.stdout.on('data', function (data) {
-    output += data
     if (!argv.quiet) process.stdout.write(data)
   })
 
   c.stderr.on('data', function (data) {
-    output += data
     process.stderr.write(data)
   })
 
