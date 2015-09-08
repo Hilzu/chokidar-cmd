@@ -72,7 +72,7 @@ function runner (command) {
 }
 
 function log (msg) {
-  if (!argv.quiet) console.log('[chokidar-cmd]', msg)
+  if (!argv.quiet) console.error('[chokidar-cmd]', msg)
 }
 
 function logError (err) {
