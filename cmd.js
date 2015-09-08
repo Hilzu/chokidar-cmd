@@ -30,7 +30,7 @@ var argv = require('yargs')
     quiet: {
       type: 'boolean',
       alias: 'q',
-      describe: 'Silence normal output'
+      describe: 'Silence normal output from chokidar-cmd'
     },
     initial: {
       type: 'boolean',
@@ -89,7 +89,7 @@ function execAsync (cmd, callback) {
   })
 
   c.stdout.on('data', function (data) {
-    if (!argv.quiet) process.stdout.write(data)
+    process.stdout.write(data)
   })
 
   c.stderr.on('data', function (data) {
