@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/Hilzu/chokidar-cmd",
   "scripts": {
-    "test": "standard && mocha -u tdd -t 5000"
+    "test": "mocha -u tdd -t 5000 && standard"
   },
   "dependencies": {
     "chokidar": "^1.0.0",
