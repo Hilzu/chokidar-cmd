@@ -1,4 +1,4 @@
-/*eslint-env node, mocha */
+/* eslint-env node, mocha */
 
 var os = require('os')
 var path = require('path')
