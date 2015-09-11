@@ -38,6 +38,39 @@ test('runs command on file change', function (done) {
   })
 })
 
+test('runs command on file add', function (done) {
+  var targetDir = path.resolve(tempdir, 'chokidar-cmd-test-dir-' + Math.random())
+  var target = path.resolve(targetDir, 'test-target-' + Math.random())
+  var echoText = target + '-added-' + Math.random()
+
+  fs.mkdir(targetDir, function (err) {
+    assert.isNull(err)
+
+    setTimeout(function () {
+      p = spawn(chokidarCmd, ['-t', targetDir, '-c', echoCmd(echoText), '-v', '--all'], { cwd: tempdir })
+
+      p.stdout.on('data', function (data) {
+        process.stdout.write(data)
+        if (new RegExp('^' + echoText).test(data.toString())) done()
+      })
+
+      p.stderr.on('data', function (data) {
+        process.stderr.write(data)
+      })
+
+      p.on('error', function (err) {
+        assert.fail(err)
+      })
+    }, 1000)
+
+    setTimeout(function () {
+      touch(target, function (err) {
+        assert.isNull(err)
+      })
+    }, 2000)
+  })
+})
+
 function echoCmd (msg) {
   return process.execPath + ' -e "console.log(\'' + msg + '\')"'
 }

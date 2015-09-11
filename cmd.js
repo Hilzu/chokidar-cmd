@@ -35,6 +35,10 @@ var argv = require('yargs')
     initial: {
       type: 'boolean',
       describe: 'Run command immediately after initial scan (when chokidar is ready)'
+    },
+    all: {
+      type: 'boolean',
+      describe: 'Run command on all file events and not just on changes'
     }
   })
   .help('help')
@@ -50,15 +54,20 @@ watcher
     process.exit(1)
   })
   .on('ready', function () { if (argv.initial) run('initial scan run') })
-  .on('change', run)
+  .on(argv.all ? 'all' : 'change', run)
 
 log('Watching "' + argv.target.join('", "') + '" and running command "' + argv.command + '" on changes')
 
 function runner (command) {
   var running = false
 
-  return function (path) {
-    verboseLog('Path "' + path + '" changed')
+  return function (event, path) {
+    if (path == null) {
+      path = event
+      event = 'change'
+    }
+
+    verboseLog('Watch detected change. Path: "' + path + '" Event: "' + event + '"')
     if (running) return
     running = true
     verboseLog('Executing command: ' + command)
