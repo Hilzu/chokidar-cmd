@@ -61,8 +61,9 @@ log('Watching "' + argv.target.join('", "') + '" and running command "' + argv.c
 function runner (command) {
   var running = false
 
-  return function (event, path) {
-    if (path == null) {
+  // linux passes stat as last argument but os x doesn't
+  return function (event, path, stat) {
+    if (path == null || typeof path === 'object') {
       path = event
       event = 'change'
     }
