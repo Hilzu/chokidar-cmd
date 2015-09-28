@@ -95,7 +95,7 @@ function verboseLog (msg) {
 
 function execAsync (cmd, callback) {
   var c = child.exec(cmd, { env: process.env }, function (err) {
-    callback(err ? err : null)
+    callback(err || null)
   })
 
   c.stdout.on('data', function (data) {
