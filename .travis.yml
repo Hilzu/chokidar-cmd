@@ -5,9 +5,9 @@ os:
   - osx
 env:
   matrix:
-    - export NODE_VERSION=v0.10
     - export NODE_VERSION=v0.12
-    - export NODE_VERSION=v4.0
+    - export NODE_VERSION=v4
+    - export NODE_VERSION=v5
 before_install:
   - git clone https://github.com/creationix/nvm.git ./.nvm
   - source ./.nvm/nvm.sh
