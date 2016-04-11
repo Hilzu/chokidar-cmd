@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "chokidar": "^1.0.0",
-    "yargs": "^3.6.0"
+    "yargs": "^4.4.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
