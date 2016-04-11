@@ -6,8 +6,8 @@ var child = require('child_process')
 var argv = require('yargs')
   .usage('Usage: chokidar-cmd -c "command" -t file-or-dir-or-glob')
   .command('chokidar-cmd', 'Watch directory or file for changes and run given command')
-  .example('chokidar-cmd -c "npm run less" -t src/styles', 'Run less build on changes to styles')
-  .example('chokidar-cmd -c "npm run less" -t src/styles -t ext/styles', 'Run less build on changes to either styles directory')
+  .example('chokidar-cmd -c "npm run less" -t src/', 'Run less build on changes to styles')
+  .example('chokidar-cmd -c "npm run less" -t src/ -t vendor/', 'Run less build on changes to either styles directory')
   .options({
     command: {
       demand: true,
