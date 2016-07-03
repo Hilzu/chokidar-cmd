@@ -1,8 +1,7 @@
 {
   "name": "chokidar-cmd",
-  "description": "Command-line wrapper for Chokidar",
+  "description": "Run shell commands when files are changed, fast",
   "version": "1.2.1",
-  "main": "index.js",
   "bin": {
     "chokidar-cmd": "./cmd.js"
   },
@@ -15,7 +14,16 @@
     "watch",
     "file",
     "cmd",
-    "bin"
+    "bin",
+    "fs",
+    "watch",
+    "watchFile",
+    "watcher",
+    "watching",
+    "fsevents",
+    "cli",
+    "command",
+    "shell"
   ],
   "author": "Santeri Hiltunen",
   "license": "MIT",
