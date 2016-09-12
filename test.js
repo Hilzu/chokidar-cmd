@@ -17,12 +17,12 @@ afterEach(function () {
 
 test('runs command on file change', function (done) {
   var target = path.resolve(tempdir, './' + 'test-target-' + Math.random())
-  var echoText = target + '-changed-' + Math.random()
+  var echoText = path.basename(target) + '-changed-' + Math.random()
 
   touch.sync(target, function (err) { assert.isNull(err) })
 
   writeTimer = setInterval(function () { appendToFile(target) }, 500)
-  p = spawn(chokidarCmd, ['-t', target, '-c', echoCmd(echoText), '-v'], { cwd: tempdir })
+  p = runChokidar(['-t', target, '-c', echoCmd(echoText), '-v'])
 
   p.stdout.on('data', function (data) {
     process.stdout.write(data)
@@ -41,13 +41,13 @@ test('runs command on file change', function (done) {
 test('runs command on file add', function (done) {
   var targetDir = path.resolve(tempdir, 'chokidar-cmd-test-dir-' + Math.random())
   var target = path.resolve(targetDir, 'test-target-' + Math.random())
-  var echoText = target + '-added-' + Math.random()
+  var echoText = path.basename(target) + '-added-' + Math.random()
 
   fs.mkdir(targetDir, function (err) {
     assert.isNull(err)
 
     setTimeout(function () {
-      p = spawn(chokidarCmd, ['-t', targetDir, '-c', echoCmd(echoText), '-v', '--all'], { cwd: tempdir })
+      p = runChokidar(['-t', targetDir, '-c', echoCmd(echoText), '-v', '--all'])
 
       p.stdout.on('data', function (data) {
         process.stdout.write(data)
@@ -72,11 +72,20 @@ test('runs command on file add', function (done) {
 })
 
 function echoCmd (msg) {
-  return process.execPath + ' -e "console.log(\'' + msg + '\')"'
+  return 'node -e "console.log(\'' + msg + '\')"'
 }
 
 function appendToFile (file) {
   fs.writeFile(file, 'test', function (err) {
     assert.isNull(err)
   })
+}
+
+function runChokidar (args) {
+  var cmd = chokidarCmd
+  if (os.platform() === 'win32') {
+    args = [chokidarCmd].concat(args)
+    cmd = 'node'
+  }
+  return spawn(cmd, args, { cwd: tempdir })
 }
