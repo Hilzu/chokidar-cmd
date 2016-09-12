@@ -71,6 +71,31 @@ test('runs command on file add', function (done) {
   })
 })
 
+test('npm command is run succesfully', function (done) {
+  var targetDir = path.resolve(tempdir, 'chokidar-cmd-test-dir-' + Math.random())
+  var target = path.resolve(targetDir, 'test-target-' + Math.random())
+  var echoText = path.basename(target) + '-added-' + Math.random()
+
+  fs.mkdirSync(targetDir)
+  touch.sync(target, function (err) { assert.isNull(err) })
+  fs.writeFileSync(path.join(targetDir, 'package.json'), '{"scripts": {"s": ' + JSON.stringify(echoCmd(echoText)) + '}}')
+  writeTimer = setInterval(function () { appendToFile(target) }, 500)
+  p = runChokidar(['-v', '-t', targetDir, '-c', 'npm run s'], targetDir)
+
+  p.stdout.on('data', function (data) {
+    process.stdout.write(data)
+    if (new RegExp('^' + echoText).test(data.toString())) done()
+  })
+
+  p.stderr.on('data', function (data) {
+    process.stderr.write(data)
+  })
+
+  p.on('error', function (err) {
+    assert.fail(err)
+  })
+})
+
 function echoCmd (msg) {
   return 'node -e "console.log(\'' + msg + '\')"'
 }
@@ -81,11 +106,11 @@ function appendToFile (file) {
   })
 }
 
-function runChokidar (args) {
+function runChokidar (args, cwd) {
   var cmd = chokidarCmd
   if (os.platform() === 'win32') {
     args = [chokidarCmd].concat(args)
     cmd = 'node'
   }
-  return spawn(cmd, args, { cwd: tempdir })
+  return spawn(cmd, args, { cwd: cwd || tempdir })
 }
