@@ -47,7 +47,7 @@ Use it directly from your package.json for watching without task runners and wit
     },
     "scripts": {
         "less": "lessc src/styles.less public/styles.css",
-        "watch:less": "chokidar-cmd -c 'npm run less' -t src/styles.less"
+        "watch:less": "chokidar-cmd -c \"npm run less\" -t src/styles.less"
     }
 }
 ```
