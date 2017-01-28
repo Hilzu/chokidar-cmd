@@ -36,6 +36,10 @@ Install globally `npm install -g chokidar-cmd` or as a project dependency `npm i
       chokidar-cmd -c "npm run less" -t src/    Run less build on changes to either
       -t vendor/                                styles directory
 
+
+     chokidar-cmd -c 'jshint $FILENAME' -t '**/*.js'  Run jshint every time a js file changes on osx/linux.
+     chokidar-cmd -c "jshint %FILENAME%" -t "**/*.js" Run jshint every time a js file changes on windows.
+
 ## npm run usage
 
 Use it directly from your package.json for watching without task runners and without installing globally!

@@ -72,7 +72,9 @@ function runner (command) {
     if (running) return
     running = true
     verboseLog('Executing command: ' + command)
-    execAsync(command, function (err) {
+
+    var env = {FILENAME: path, EVENT: event};
+    execAsync(command, env, function (err) {
       if (err) logError(err)
       else verboseLog('Command "' + command + '" completed successfully')
 
@@ -93,8 +95,8 @@ function verboseLog (msg) {
   if (argv.verbose) log(msg)
 }
 
-function execAsync (cmd, callback) {
-  var c = child.exec(cmd, { env: process.env }, function (err) {
+function execAsync (cmd, env, callback) {
+    var c = child.exec(cmd, { env: Object.assign(process.env, env) }, function (err) {
     callback(err || null)
   })
 
