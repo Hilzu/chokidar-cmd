@@ -98,7 +98,7 @@ function verboseLog (msg) {
 }
 
 function execAsync (cmd, env, callback) {
-    var c = child.exec(cmd, {env: env}, function (err) {
+  var c = child.exec(cmd, {env: env}, function (err) {
     callback(err || null)
   })
 
