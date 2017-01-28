@@ -73,7 +73,9 @@ function runner (command) {
     running = true
     verboseLog('Executing command: ' + command)
 
-    var env = {FILENAME: path, EVENT: event};
+    var env = process.env
+    env.FILENAME = path
+    env.EVENT = event
     execAsync(command, env, function (err) {
       if (err) logError(err)
       else verboseLog('Command "' + command + '" completed successfully')
@@ -96,7 +98,7 @@ function verboseLog (msg) {
 }
 
 function execAsync (cmd, env, callback) {
-    var c = child.exec(cmd, { env: Object.assign(process.env, env) }, function (err) {
+    var c = child.exec(cmd, {env: env}, function (err) {
     callback(err || null)
   })
 
