@@ -3,6 +3,7 @@
 
 var chokidar = require('chokidar')
 var child = require('child_process')
+var objectAssign = require('object-assign')
 var argv = require('yargs')
   .usage('Usage: chokidar-cmd -c "command" -t file-or-dir-or-glob')
   .command('chokidar-cmd', 'Watch directory or file for changes and run given command')
@@ -72,7 +73,9 @@ function runner (command) {
     if (running) return
     running = true
     verboseLog('Executing command: ' + command)
-    execAsync(command, function (err) {
+
+    var env = objectAssign({}, process.env, {FILENAME: path, EVENT: event})
+    execAsync(command, env, function (err) {
       if (err) logError(err)
       else verboseLog('Command "' + command + '" completed successfully')
 
@@ -93,8 +96,8 @@ function verboseLog (msg) {
   if (argv.verbose) log(msg)
 }
 
-function execAsync (cmd, callback) {
-  var c = child.exec(cmd, { env: process.env }, function (err) {
+function execAsync (cmd, env, callback) {
+  var c = child.exec(cmd, {env: env}, function (err) {
     callback(err || null)
   })
 
