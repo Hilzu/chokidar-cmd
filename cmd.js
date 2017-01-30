@@ -3,7 +3,7 @@
 
 var chokidar = require('chokidar')
 var child = require('child_process')
-const objectAssign = require('object-assign');
+var objectAssign = require('object-assign')
 var argv = require('yargs')
   .usage('Usage: chokidar-cmd -c "command" -t file-or-dir-or-glob')
   .command('chokidar-cmd', 'Watch directory or file for changes and run given command')
