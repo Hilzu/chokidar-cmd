@@ -1,7 +1,7 @@
 {
   "name": "chokidar-cmd",
   "description": "Run shell commands when files are changed, fast",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "bin": {
     "chokidar-cmd": "./cmd.js"
   },
