@@ -1,9 +1,6 @@
 chokidar-cmd
 ============
 
-[![macOS/Linux Build Status](https://travis-ci.org/Hilzu/chokidar-cmd.svg)](https://travis-ci.org/Hilzu/chokidar-cmd)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/104hspkurueykk3g?svg=true)](https://ci.appveyor.com/project/Hilzu/chokidar-cmd)
-
 ⚠️ **This package is deprecated!** After releasing this package another one called
 [chokidar-cli](https://github.com/kimmobrunfeldt/chokidar-cli) was
 made for the same purpose. chokidar-cli is now [way more popular](http://www.npmtrends.com/chokidar-cmd-vs-chokidar-cli)
